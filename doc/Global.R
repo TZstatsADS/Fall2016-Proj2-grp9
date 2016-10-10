@@ -253,3 +253,153 @@ for (i in 1:644){
 }
 data_10pm <- data.frame(data_10pm, row.names = c(1:664))
 colnames(data_10pm) = c("Station_NO.", "Num_bikes_available", "Num_bike_disable", "Num_dock_available", "Num_dock_disable", "is_installed", "is_renting", "is_returning")
+
+data_information_whole <- readRDS("/Users/kaishengwang/Desktop/Applied\ Data\ Science\ Project/Project\ 2/Data/info.RData")
+data_information <- matrix(nrow = 664, ncol = 4)
+for (i in 1:644){
+  data_information[i, 1] <- data_information_whole$data$stations[[i]]$station_id
+  data_information[i, 2] <- data_information_whole$data$stations[[i]]$name
+  data_information[i, 3] <- data_information_whole$data$stations[[i]]$lat
+  data_information[i, 4] <- data_information_whole$data$stations[[i]]$lon
+}
+data_information <- data.frame(data_information, row.names = c(1:664))
+colnames(data_information) = c("Station_NO.", "Station_Name", "Latitude", "longitude")
+
+#Create Function
+library(RCurl)
+library(RJSONIO)
+library(dplyr)
+library(stringr)
+library(ggmap)
+library(taRifx.geo)
+
+
+
+# Data cleaning to get rid of records with no geo info
+# Original data NYPD_Motor_Vehicle_Collisions.csv is 119.5 MB, which is too large to be included in this repo
+
+############### Code ##############
+
+# Import toilet data (pt is short for public toilet)
+
+decodeLine <- function(encoded){
+  require(bitops)
+  
+  vlen <- nchar(encoded)
+  vindex <- 0
+  varray <- NULL
+  vlat <- 0
+  vlng <- 0
+  
+  while(vindex < vlen){
+    vb <- NULL
+    vshift <- 0
+    vresult <- 0
+    repeat{
+      if(vindex + 1 <= vlen){
+        vindex <- vindex + 1
+        vb <- as.integer(charToRaw(substr(encoded, vindex, vindex))) - 63  
+      }
+      
+      vresult <- bitOr(vresult, bitShiftL(bitAnd(vb, 31), vshift))
+      vshift <- vshift + 5
+      # print(vb)
+      if(vb < 32) break
+    }
+    
+    dlat <- ifelse(
+      bitAnd(vresult, 1)
+      , -(bitShiftR(vresult, 1)+1)
+      , bitShiftR(vresult, 1)
+    )
+    vlat <- vlat + dlat
+    
+    vshift <- 0
+    vresult <- 0
+    repeat{
+      if(vindex + 1 <= vlen) {
+        vindex <- vindex+1
+        vb <- as.integer(charToRaw(substr(encoded, vindex, vindex))) - 63        
+      }
+      
+      vresult <- bitOr(vresult, bitShiftL(bitAnd(vb, 31), vshift))
+      vshift <- vshift + 5
+      if(vb < 32) break
+    }
+    
+    dlng <- ifelse(
+      bitAnd(vresult, 1)
+      , -(bitShiftR(vresult, 1)+1)
+      , bitShiftR(vresult, 1)
+    )
+    vlng <- vlng + dlng
+    
+    varray <- rbind(varray, c(vlat * 1e-5, vlng * 1e-5))
+  }
+  coords <- data.frame(varray)
+  names(coords) <- c("lat", "lon")
+  coords
+}
+
+filter_crime<-function(lat,lng,radius){
+  latlimit<-(radius)/110574    #1 deg = 110574 m     1m = 1/110574 deg
+  lnglimit<-(0.25*radius)/abs(111320*cos(lat))  #1 deg = 111320*cos(latitude) m    1m= 1/(111320*cos(latitude)) deg
+  latrange_upper<-lat+latlimit
+  latrange_lower<-lat-latlimit
+  lngrange_upper<-lng+lnglimit
+  lngrange_lower<-lng-lnglimit
+  crime_sub<-filter(crime, Lat>latrange_lower,Lat<latrange_upper,
+                    Long>lngrange_lower,Long<lngrange_upper)
+  return(crime_sub)
+}
+# lat=40.748730
+# lng=-73.988315
+# filter_crime(lat,lng,400)
+
+
+
+url <- function(address, return.call = "json", sensor = "false") {
+  root <- "http://maps.google.com/maps/api/geocode/"
+  u <- paste(root, return.call, "?address=", address, "&sensor=", sensor, sep = "")
+  return(URLencode(u))
+}
+
+
+geoCode <- function(address,verbose=FALSE) {
+  if(verbose) cat(address,"\n")
+  u <- url(address)
+  doc <- getURL(u)
+  x <- fromJSON(doc,simplify = FALSE)
+  if(x$status=="OK") {
+    lat <- x$results[[1]]$geometry$location$lat
+    lng <- x$results[[1]]$geometry$location$lng
+    location_type  <- x$results[[1]]$geometry$location_type
+    formatted_address  <- x$results[[1]]$formatted_address
+    return(c(lat, lng, location_type, formatted_address))
+    Sys.sleep(0.5)
+  } else {
+    return(c(NA,NA,NA, NA))
+  }
+}
+
+
+url2 <- function(ori_lat,ori_lng,des_lat,des_lng,return.call = "json", sensor = "false") {
+  root <- "http://maps.google.com/maps/api/directions/"
+  u <- paste(root, return.call, "?origin=", ori_lat,"+",ori_lng,"&destination=",des_lat,"+",des_lng,"&sensor=", sensor, sep = "")
+  return(URLencode(u))
+}
+
+geoRoute <- function(ori_lat,ori_lng,des_lat,des_lng) {
+  #if(verbose) cat(address,"\n")
+  u <- url2(ori_lat,ori_lng,des_lat,des_lng)
+  doc <- getURL(u)
+  x <- fromJSON(doc,simplify = FALSE)
+  if(x$status=="OK") {
+    route <- x$route[[1]]$overview_polyline$points
+    return(route)
+    Sys.sleep(0.5)
+  } else {
+    return(NA)
+  }
+}
+
