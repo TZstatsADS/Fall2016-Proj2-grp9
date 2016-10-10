@@ -208,7 +208,7 @@ poly1<- geoRoute(r1$p1[1],r1$p1[2],mid1$p1[1],mid1$p1[2])
 poly2 <- geoRoute(mid1$p1[1],mid1$p1[2],g1$p2[1],g1$p2[2])
 llatlon1 <- decodeLine(poly1)
 llatlon2 <- decodeLine(poly2)
-Midicon<-icons(iconUrl="C:/Users/Owner/Desktop/ADS/Project2/129538-simple-red-square-icon-signs-z-roadsign20.png",iconWidth=50,iconHeight=50)
+#Midicon<-icons(iconUrl="C:/Users/Owner/Desktop/ADS/Project2/129538-simple-red-square-icon-signs-z-roadsign20.png",iconWidth=50,iconHeight=50)
 
 #mid Api#
 wed_add1<-sprintf("https://maps.googleapis.com/maps/api/distancematrix/json?origins=%s,%s&destinations=%s,%s&mode=bicycling&key=%s",r1$p1[1],r1$p1[2],mid1$p1[1],mid1$p1[2],Api_key)
@@ -225,7 +225,7 @@ leaflet(data=position2)%>%
   addTiles(
     urlTemplate = "https://api.mapbox.com/styles/v1/mapbox/streets-v9/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoia3Jvenp6eiIsImEiOiJjaXUxcDM0YjcwY2M1MnRxdGgyYmpmejJ5In0.RIFdcxZWeT9E1AALqa8cvA",
     attribution = 'Maps by <a href="http://www.mapbox.com/">Mapbox</a>'
-  )%>%addMarkers(rlon,rlat,popup="Start")%>%addMarkers(mid1$p1[2],mid1$p1[1],icon=Midicon,popup="Mid")%>%addMarkers(glon,glat,popup="End")%>%
+  )%>%addMarkers(rlon,rlat,popup="Start")%>%addMarkers(mid1$p1[2],mid1$p1[1],popup=paste("Mid, ",as.character(mid1$p1[3])," bikes available, ",as.character(mid1$p1[4]),"docks available"))%>%addMarkers(glon,glat,popup="End")%>%
   addMarkers(~slon2,~slat2,icon=Bikeicons1,popup=~paste(as.character(nuba2)," bikes available, ",as.character(nuda2),"docks available"))%>%
   addPolylines(lng=llatlon1$lon,lat=llatlon1$lat,color="blue",popup=sprintf("Time=%s, Distance=%s",Times1,Distances1))%>%
   addPolylines(lng=llatlon2$lon,lat=llatlon2$lat,color="red",popup=sprintf("Time=%s, Distance=%s",Times2,Distances2))%>%
