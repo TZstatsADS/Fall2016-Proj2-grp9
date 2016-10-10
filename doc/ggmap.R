@@ -180,6 +180,59 @@ leaflet(data=position1)%>%
   addPolylines(lng=llatlon$lon,lat=llatlon$lat,color="blue",popup=sprintf("Time=%s, Distance=%s",Times,Distances))%>%
   setView(lng = -73.97, lat = 40.75, zoom = 13)
 
+#leaflet-Nearest-overlap,server part#
+#leafletProxy("map") %>%
+#  clearMarkers() %>%
+#  addMarkers(rlon,rlat,popup="Start")%>%addMarkers(glon,glat,popup="End")%>%
+#  addMarkers(data=position1,~slon1,~slat1,icon=Bikeicons1,popup=~paste(as.character(nuba1)," bikes available, ",as.character(nuda1),"docks available"))%>%
+#  addPolylines(lng=llatlon$lon,lat=llatlon$lat,color="blue",popup=sprintf("Time=%s, Distance=%s",Times,Distances))%>%
+#  setView(lng = -73.97, lat = 40.75, zoom = 13)
+
+
+#mid-point,georoute#
+rlat <- 40.75
+rlon <- -73.973
+glat <- 40.76
+glon<- -73.98
+mid_lat<-(rlat+glat)/2
+mid_lon<-(rlon+glon)/2
+r1<-Nearest3(rlat,rlon,slat,slon,nuba,nuda)
+g1<-Nearest3(glat,glon,slat,slon,nuba,nuda)
+mid1<-Nearest3(mid_lat,mid_lon,slat,slon,nuba,nuda)
+slat2<-c(r1$p1[1],r1$p2[1],r1$p3[1],g1$p1[1],g1$p2[1],g1$p3[1])
+slon2<-c(r1$p1[2],r1$p2[2],r1$p3[2],g1$p1[2],g1$p2[2],g1$p3[2])
+nuba2<-c(r1$p1[3],r1$p2[3],r1$p3[3],g1$p1[3],g1$p2[3],g1$p3[3])
+nuda2<-c(r1$p1[4],r1$p2[4],r1$p3[4],g1$p1[4],g1$p2[4],g1$p3[4])
+position2<-data.frame(slon2,slat2)
+poly1<- geoRoute(r1$p1[1],r1$p1[2],mid1$p1[1],mid1$p1[2])
+poly2 <- geoRoute(mid1$p1[1],mid1$p1[2],g1$p2[1],g1$p2[2])
+llatlon1 <- decodeLine(poly1)
+llatlon2 <- decodeLine(poly2)
+Midicon<-icons(iconUrl="C:/Users/Owner/Desktop/ADS/Project2/129538-simple-red-square-icon-signs-z-roadsign20.png",iconWidth=50,iconHeight=50)
+
+#mid Api#
+wed_add1<-sprintf("https://maps.googleapis.com/maps/api/distancematrix/json?origins=%s,%s&destinations=%s,%s&mode=bicycling&key=%s",r1$p1[1],r1$p1[2],mid1$p1[1],mid1$p1[2],Api_key)
+Route1<-fromJSON(wed_add1)
+Distances1<-Route1$rows[[1]]$elements[[1]]$distance$text
+Times1<-Route1$rows[[1]]$elements[[1]]$duration$text
+wed_add2<-sprintf("https://maps.googleapis.com/maps/api/distancematrix/json?origins=%s,%s&destinations=%s,%s&mode=bicycling&key=%s",mid1$p1[1],mid1$p1[2],g1$p2[1],g1$p2[2],Api_key)
+Route2<-fromJSON(wed_add2)
+Distances2<-Route2$rows[[1]]$elements[[1]]$distance$text
+Times2<-Route2$rows[[1]]$elements[[1]]$duration$text
+
+#leaflet-Mid-Nearest#
+leaflet(data=position2)%>%
+  addTiles(
+    urlTemplate = "https://api.mapbox.com/styles/v1/mapbox/streets-v9/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoia3Jvenp6eiIsImEiOiJjaXUxcDM0YjcwY2M1MnRxdGgyYmpmejJ5In0.RIFdcxZWeT9E1AALqa8cvA",
+    attribution = 'Maps by <a href="http://www.mapbox.com/">Mapbox</a>'
+  )%>%addMarkers(rlon,rlat,popup="Start")%>%addMarkers(mid1$p1[2],mid1$p1[1],icon=Midicon,popup="Mid")%>%addMarkers(glon,glat,popup="End")%>%
+  addMarkers(~slon2,~slat2,icon=Bikeicons1,popup=~paste(as.character(nuba2)," bikes available, ",as.character(nuda2),"docks available"))%>%
+  addPolylines(lng=llatlon1$lon,lat=llatlon1$lat,color="blue",popup=sprintf("Time=%s, Distance=%s",Times1,Distances1))%>%
+  addPolylines(lng=llatlon2$lon,lat=llatlon2$lat,color="red",popup=sprintf("Time=%s, Distance=%s",Times2,Distances2))%>%
+  setView(lng = -73.97, lat = 40.75, zoom = 13)
+
+
+
 #LRM#
 #map<-Leaflet$new()
 #for(i in 1:664)
