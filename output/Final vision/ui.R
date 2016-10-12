@@ -62,7 +62,7 @@ shinyUI(navbarPage("Citi Bike", id="nav",
                                               ### 1. first option: time range
                                               # after choosing time range
                                               # the map should show the avaibility for all bike stations in this period of time
-                                              selectInput("TimeRange", "Time Range of the day", TimeRange,selected =1),                                            
+                                              selectInput("TimeRange", "Time Range of the day", TimeRange,selected=1),                                            
                                             
                                               ### 2. second option: Current location
                                               textInput("address1", "Your Location", value = NA, width = NULL, placeholder = NULL),

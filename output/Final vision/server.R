@@ -1,13 +1,14 @@
 #Server#
 shinyServer(function(input, output,session) {
-  output$map <- renderLeaflet({
+#First Map#
+   output$map <- renderLeaflet({
     leaflet() %>%
       addTiles(
         urlTemplate = "https://api.mapbox.com/v4/mapbox.streets/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiZnJhcG9sZW9uIiwiYSI6ImNpa3Q0cXB5bTAwMXh2Zm0zczY1YTNkd2IifQ.rjnjTyXhXymaeYG6r2pclQ",
         attribution = 'Maps by <a href="http://www.mapbox.com/">Mapbox</a>'
       ) %>%
       setView(lng = -73.97, lat = 40.75, zoom = 13)
-  })
+   })  
   
 #Stations status (TimeRange)#
 Sstatus<-reactive({
@@ -26,27 +27,26 @@ Sstatus<-reactive({
    nuda_u<-nuda[nuba==0|nuda==0]
    S_a<-data.frame(slat_a,slon_a,nuba_a,nuda_a,sname_a)
    S_u<-data.frame(slat_u,slon_u,nuba_u,nuda_u,sname_u)
-   return(list(S_a=S_a,S_u=S_u))
-})
+  return(list(S_a=S_a,S_u=S_u))
+   })
 #Initial plots#
-
 observe({
-leafletProxy("map") %>%
- clearMarkers() %>%
- addMarkers(data=Sstatus()[["S_a"]],~slon_a,~slat_a,icon=Bikeicons2,popup=~paste("Name: ",sname_a,"<br>",as.character(nuba_a)," bikes available, ",as.character(nuda_a),"docks available"))%>%
- addMarkers(data=Sstatus()[["S_u"]],~slon_u,~slat_u,icon=Bikeicons1,popup=~paste("Name: ",sname_u,"<br>",as.character(nuba_u)," bikes available, ",as.character(nuda_u),"docks available"))
- }) 
+ temp_a<-Sstatus()[["S_a"]]
+ temp_u<-Sstatus()[["S_u"]]
+ leafletProxy("map")%>%
+   clearMarkers()%>%
+    addMarkers(data=temp_a,temp_a$slon_a,temp_a$slat_a,icon=Bikeicons2,popup=~paste("Name: ",temp_a$sname_a,"<br>",as.character(temp_a$nuba_a)," bikes available, ",as.character(temp_a$nuda_a),"docks available"))%>%
+    addMarkers(data=temp_u,temp_u$slon_u,temp_u$slat_u,icon=Bikeicons1,popup=~paste("Name: ",temp_u$sname_u,"<br>",as.character(temp_u$nuba_u)," bikes available, ",as.character(temp_u$nuda_u),"docks available"))
+ 
 #2 addresses part#
-observe({
+
  if(input$submit>0)
-  {
-  add_origin<-geocode(input$address1)
+ {add_origin<-geocode(input$address1)
   add_destination<-geocode(input$address2)
   rlat<-as.numeric(add_origin[2])
   rlon<-as.numeric(add_origin[1])
   glat<-as.numeric(add_destination[2])
   glon<-as.numeric(add_destination[1])
-  temp_a<-Sstatus()[["S_a"]]
   r1<-Nearest3(rlat,rlon,temp_a$slat_a,temp_a$slon_a,temp_a$sname_a,temp_a$nuba_a,temp_a$nuda_a)
   g1<-Nearest3(glat,glon,temp_a$slat_a,temp_a$slon_a,temp_a$sname_a,temp_a$nuba_a,temp_a$nuda_a)
  
@@ -57,10 +57,11 @@ observe({
   nuda1<-c(r1$p1[4],r1$p2[4],r1$p3[4],g1$p1[4],g1$p2[4],g1$p3[4])
   sname1<-c(r1$p1[5],r1$p2[5],r1$p3[5],g1$p1[5],g1$p2[5],g1$p3[5])
   position1<-data.frame(slon1,slat1)
+   
   leafletProxy("map")%>%
-   clearMarkers() %>%
-   addMarkers(rlon,rlat,popup="Start")%>%addMarkers(glon,glat,popup="End")%>%
-   addMarkers(data=position1,~slon1,~slat1,icon=Bikeicons2,popup=~paste("Name: ",sname1,"<br>",as.character(nuba1)," bikes available, ",as.character(nuda1),"docks available"))
+    clearMarkers()%>%
+    addMarkers(rlon,rlat,popup="Start",icon=mapicon)%>%addMarkers(glon,glat,popup="End",icon=mapicon)%>%
+    addMarkers(data=position1,~slon1,~slat1,icon=Bikeicons2,popup=~paste("Name: ",sname1,"<br>",as.character(nuba1)," bikes available, ",as.character(nuda1),"docks available"))
 
   
 
@@ -77,8 +78,8 @@ ulon <- event1$lng
 #vlon <- event2$lng
 vlat<-g1$p1[1]
 vlon<-g1$p1[2]
-
 }
+
 
 #One Stop or not#
   
@@ -99,7 +100,6 @@ vlon<-g1$p1[2]
   { 
     mid_lat<-(ulat+vlat)/2
     mid_lon<-(ulon+vlon)/2
-    temp_a<-Sstatus()[["S_a"]]
     mid1<-Nearest3(mid_lat,mid_lon,temp_a$slat_a,temp_a$slon_a,temp_a$sname_a,temp_a$nuba_a,temp_a$nuda_a)
     poly1<- geoRoute(ulat,ulon,mid1$p1[1],mid1$p1[2])
     poly2 <- geoRoute(mid1$p1[1],mid1$p1[2],vlat,vlon)
@@ -117,10 +117,14 @@ vlon<-g1$p1[2]
    leafletProxy("map")%>%
      clearShapes() %>%
      addMarkers(mid1$p1[2],mid1$p1[1],popup=paste("Names: ",mid1$p1[5],"<br>","Mid","<br>",as.character(mid1$p1[3])," bikes available, ",as.character(mid1$p1[4]),"docks available"))%>%
-     addPolylines(lng=llatlon1$lon,lat=llatlon1$lat,color="blue",popup=sprintf("Time=%s, Distance=%s",Times1,Distances1))%>%
+     addPolylines(lng=llatlon1$lon,lat=llatlon1$lat,color="yellow",popup=sprintf("Time=%s, Distance=%s",Times1,Distances1))%>%
      addPolylines(lng=llatlon2$lon,lat=llatlon2$lat,color="red",popup=sprintf("Time=%s, Distance=%s",Times2,Distances2))
     }
 })
+
+
+
+#Second Map#
 output$heat_text = renderText({
   paste("Heat Graph of All Stations")
 })

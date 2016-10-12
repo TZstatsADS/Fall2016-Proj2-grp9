@@ -17,7 +17,7 @@ library(stringr)
 library(rCharts)
 
 #Input Data
-data_6am_whole <- readRDS("C:/Users/Owner/Desktop/ADS/New folder/6am.RData")
+data_6am_whole <- readRDS("6am.RData")
 vector1 <- vector(length = 664)
 vector2 <- vector(length = 664)
 vector3 <- vector(length = 664)
@@ -49,7 +49,7 @@ rm(vector7)
 rm(vector8)
 rm(data_6am_whole)
 
-data_7am_whole <- readRDS("C:/Users/Owner/Desktop/ADS/New folder/7am.RData")
+data_7am_whole <- readRDS("7am.RData")
 vector1 <- vector(length = 664)
 vector2 <- vector(length = 664)
 vector3 <- vector(length = 664)
@@ -82,7 +82,7 @@ rm(vector8)
 rm(data_7am_whole)
 
 
-data_8am_whole <- readRDS("C:/Users/Owner/Desktop/ADS/New folder/8am.RData")
+data_8am_whole <- readRDS("8am.RData")
 vector1 <- vector(length = 664)
 vector2 <- vector(length = 664)
 vector3 <- vector(length = 664)
@@ -114,7 +114,7 @@ rm(vector7)
 rm(vector8)
 rm(data_8am_whole)
 
-data_9am_whole <- readRDS("C:/Users/Owner/Desktop/ADS/New folder/9am.RData")
+data_9am_whole <- readRDS("9am.RData")
 vector1 <- vector(length = 664)
 vector2 <- vector(length = 664)
 vector3 <- vector(length = 664)
@@ -146,7 +146,7 @@ rm(vector7)
 rm(vector8)
 rm(data_9am_whole)
 
-data_10am_whole <- readRDS("C:/Users/Owner/Desktop/ADS/New folder/10am.RData")
+data_10am_whole <- readRDS("10am.RData")
 vector1 <- vector(length = 664)
 vector2 <- vector(length = 664)
 vector3 <- vector(length = 664)
@@ -178,7 +178,7 @@ rm(vector7)
 rm(vector8)
 rm(data_10am_whole)
 
-data_11am_whole <- readRDS("C:/Users/Owner/Desktop/ADS/New folder/11am.RData")
+data_11am_whole <- readRDS("11am.RData")
 vector1 <- vector(length = 664)
 vector2 <- vector(length = 664)
 vector3 <- vector(length = 664)
@@ -210,7 +210,7 @@ rm(vector7)
 rm(vector8)
 rm(data_11am_whole)
 
-data_12pm_whole <- readRDS("C:/Users/Owner/Desktop/ADS/New folder/12pm.RData")
+data_12pm_whole <- readRDS("12pm.RData")
 vector1 <- vector(length = 664)
 vector2 <- vector(length = 664)
 vector3 <- vector(length = 664)
@@ -242,7 +242,7 @@ rm(vector7)
 rm(vector8)
 rm(data_12pm_whole)
 
-data_1pm_whole <- readRDS("C:/Users/Owner/Desktop/ADS/New folder/1pm.RData")
+data_1pm_whole <- readRDS("1pm.RData")
 vector1 <- vector(length = 664)
 vector2 <- vector(length = 664)
 vector3 <- vector(length = 664)
@@ -274,7 +274,7 @@ rm(vector7)
 rm(vector8)
 rm(data_1pm_whole)
 
-data_2pm_whole <- readRDS("C:/Users/Owner/Desktop/ADS/New folder/2pm.RData")
+data_2pm_whole <- readRDS("2pm.RData")
 vector1 <- vector(length = 664)
 vector2 <- vector(length = 664)
 vector3 <- vector(length = 664)
@@ -306,7 +306,7 @@ rm(vector7)
 rm(vector8)
 rm(data_2pm_whole)
 
-data_3pm_whole <- readRDS("C:/Users/Owner/Desktop/ADS/New folder/3pm.RData")
+data_3pm_whole <- readRDS("3pm.RData")
 vector1 <- vector(length = 664)
 vector2 <- vector(length = 664)
 vector3 <- vector(length = 664)
@@ -338,7 +338,7 @@ rm(vector7)
 rm(vector8)
 rm(data_3pm_whole)
 
-data_4pm_whole <- readRDS("C:/Users/Owner/Desktop/ADS/New folder/4pm.RData")
+data_4pm_whole <- readRDS("4pm.RData")
 vector1 <- vector(length = 664)
 vector2 <- vector(length = 664)
 vector3 <- vector(length = 664)
@@ -370,7 +370,7 @@ rm(vector7)
 rm(vector8)
 rm(data_4pm_whole)
 
-data_5pm_whole <- readRDS("C:/Users/Owner/Desktop/ADS/New folder/5pm.RData")
+data_5pm_whole <- readRDS("5pm.RData")
 vector1 <- vector(length = 664)
 vector2 <- vector(length = 664)
 vector3 <- vector(length = 664)
@@ -402,7 +402,7 @@ rm(vector7)
 rm(vector8)
 rm(data_5pm_whole)
 
-data_6pm_whole <- readRDS("C:/Users/Owner/Desktop/ADS/New folder/6pm.RData")
+data_6pm_whole <- readRDS("6pm.RData")
 vector1 <- vector(length = 664)
 vector2 <- vector(length = 664)
 vector3 <- vector(length = 664)
@@ -434,7 +434,7 @@ rm(vector7)
 rm(vector8)
 rm(data_6pm_whole)
 
-data_7pm_whole <- readRDS("C:/Users/Owner/Desktop/ADS/New folder/7pm.RData")
+data_7pm_whole <- readRDS("7pm.RData")
 vector1 <- vector(length = 664)
 vector2 <- vector(length = 664)
 vector3 <- vector(length = 664)
@@ -466,7 +466,7 @@ rm(vector7)
 rm(vector8)
 rm(data_7pm_whole)
 
-data_8pm_whole <- readRDS("C:/Users/Owner/Desktop/ADS/New folder/8pm.RData")
+data_8pm_whole <- readRDS("8pm.RData")
 vector1 <- vector(length = 664)
 vector2 <- vector(length = 664)
 vector3 <- vector(length = 664)
@@ -498,7 +498,7 @@ rm(vector7)
 rm(vector8)
 rm(data_8pm_whole)
 
-data_9pm_whole <- readRDS("C:/Users/Owner/Desktop/ADS/New folder/9pm.RData")
+data_9pm_whole <- readRDS("9pm.RData")
 vector1 <- vector(length = 664)
 vector2 <- vector(length = 664)
 vector3 <- vector(length = 664)
@@ -530,7 +530,7 @@ rm(vector7)
 rm(vector8)
 rm(data_9pm_whole)
 
-data_10pm_whole <- readRDS("C:/Users/Owner/Desktop/ADS/New folder/10pm.RData")
+data_10pm_whole <- readRDS("10pm.RData")
 vector1 <- vector(length = 664)
 vector2 <- vector(length = 664)
 vector3 <- vector(length = 664)
@@ -582,7 +582,7 @@ data_Time[[16]] <- data_9pm
 data_Time[[17]] <- data_10pm
 
 
-data_information_whole <- readRDS("C:/Users/Owner/Desktop/ADS/New folder/info.RData")
+data_information_whole <- readRDS("info.RData")
 #data_information <- matrix(0,nrow = 664, ncol = 4)
 vector1 <- vector(length = 664)
 vector2 <- vector(length = 664)
@@ -618,16 +618,21 @@ Api_key<-"AIzaSyA0UYIWqZLCE-IBl5x1mrhZJ8wdRh5yVcM"
 #Bikeicon1#
 Bikeicons1<-
   icons(
-    iconUrl="C:/Users/Owner/Desktop/ADS/New folder/No.png",
+    iconUrl="No.png",
     iconWidth=20,iconHeight=20)
 
 
 #Bikeicon2#
 Bikeicons2<-
   icons(
-    iconUrl="C:/Users/Owner/Desktop/ADS/New folder/092-512.png",
+    iconUrl="092-512.png",
     iconWidth=20,iconHeight=20)
 
+#Map icon#
+mapicon<-
+  icons(
+    iconUrl="ind.png",
+    iconWidth=25,iconHeight=25)
 
 #Create Function
 library(RCurl)
