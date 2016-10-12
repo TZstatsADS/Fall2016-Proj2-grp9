@@ -11,10 +11,11 @@ Term: Fall 2016
 	+ Hyung joon Choi
 	+ KaiSheng Wang
 
-+ Project summary: The project is focus on the using citi bike data and Google map API to recommand route for citi bike users. Unlike google map or citi bike station map, we show the start location, destination and all stations on the map, and let users to make their own choices. In this way, can users take factors except distance and station avaibility into consideration, and make a better choice on choosing bike stations on their own.(draft)
++ Project summary: There are more than 100,000 citi bike users in New York City. Our project focuses on using citi bike data and Google map API to recommend nearby bike stations and routes for users. We also provide station information based on different time. The datasets we used were collected from citi bike official website from 6am to 10pm. Users can select the time when they would like to use the citi bikes and they can see the avaibility of all the bike stations. After inputting addresses of the start point and the desitination, the users will see three recommended avalable stations around the start point and destination. Unlike google map or citi bike station map, we only show three nearest stations around the start location and destination on the map, and let users to make their own choices. In this way, the users have greater flexibility of the choices and pick an optimal station to use bikes.Besides, we also showed a heatmap of bike stations, which shows location informations of citi bike stations.
+
+
 
 **Inspiration**:
-+ [DIDI Toielets](https://github.com/TZstatsADS/Spr2016-Proj2-Grp6)
 + [Citi Bike Station Map](https://member.citibikenyc.com/map/)
 
 
