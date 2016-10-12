@@ -10,7 +10,7 @@ shinyServer(function(input, output,session) {
   })
   
 #Stations status (TimeRange)#
-observe({
+Sstatus<-reactive({
    status<-data_Time[[as.numeric(input$TimeRange)]]
    nuba<-status$Num_bikes_available
    nuda<-status$Num_dock_available
@@ -26,11 +26,12 @@ observe({
    nuda_u<-nuda[nuba==0|nuda==0]
    S_a<-data.frame(slat_a,slon_a,nuba_a,nuda_a,sname_a)
    S_u<-data.frame(slat_u,slon_u,nuba_u,nuda_u,sname_u)
+   return(list(S_a=S_a,S_u=S_u))})
 #Initial plots#
    
- leafletProxy("map") %>%
+leafletProxy("map") %>%
  clearMarkers() %>%
- addMarkers(data=S_a,~slon_a,~slat_a,icon=Bikeicons2,popup=~paste("Name: ",sname_a,"<br>",as.character(nuba_a)," bikes available, ",as.character(nuda_a),"docks available"))%>%
+ addMarkers(data=Sstatus,S_a,~slon_a,~slat_a,icon=Bikeicons2,popup=~paste("Name: ",sname_a,"<br>",as.character(nuba_a)," bikes available, ",as.character(nuda_a),"docks available"))%>%
  addMarkers(data=S_u,~slon_u,~slat_u,icon=Bikeicons1,popup=~paste("Name: ",sname_u,"<br>",as.character(nuba_u)," bikes available, ",as.character(nuda_u),"docks available"))
 
 #2 addresses part#
@@ -42,8 +43,8 @@ observe({
   rlon<-as.numeric(add_origin[1])
   glat<-as.numeric(add_destination[2])
   glon<-as.numeric(add_destination[1])
-  r1<-Nearest3(rlat,rlon,slat_a,slon_a,sname_a)
-  g1<-Nearest3(glat,glon,slat_a,slon_a,sname_a)
+  r1<-Nearest3(rlat,rlon,slat_a,slon_a,sname_a,nuba_a,nuda_a)
+  g1<-Nearest3(glat,glon,slat_a,slon_a,sname_a,nuba_a,nuda_a)
   slat1<-c(r1$p1[1],r1$p2[1],r1$p3[1],g1$p1[1],g1$p2[1],g1$p3[1])
   slon1<-c(r1$p1[2],r1$p2[2],r1$p3[2],g1$p1[2],g1$p2[2],g1$p3[2])
   nuba1<-c(r1$p1[3],r1$p2[3],r1$p3[3],g1$p1[3],g1$p2[3],g1$p3[3])
@@ -56,14 +57,19 @@ observe({
    addMarkers(data=position1,~slon1,~slat1,icon=Bikeicons2,popup=~paste("Name: ",sname1,"<br>",as.character(nuba1)," bikes available, ",as.character(nuda1),"docks available"))
 }
 #Click part#
-  event1<-input$map_marker_click
-  if (is.null(event1))
-  {return()}
-  event2<-input$map_marker_click
-  ulat <- event1$lat
-  ulon <- event1$lng
-  vlat <- event2$lat
-  vlon <- event2$lng
+event1<-input$map_marker_click
+if (is.null(event1))
+{return()}
+#event2<-input$map_marker_click
+#if (is.null(event2))
+#{return()}
+ulat <- event1$lat
+ulon <- event1$lng
+#vlat <- event2$lat
+#vlon <- event2$lng
+vlat<-g1$p1[1]
+vlon<-g1$p1[2]
+
 
 
 #One Stop or not#
@@ -75,7 +81,7 @@ observe({
     Route<-fromJSON(wed_add,simplify = FALSE)
     Distances<-Route$rows[[1]]$elements[[1]]$distance$text
     Times<-Route$rows[[1]]$elements[[1]]$duration$text 
-    poly <- geoRoute(vlon,vlat,ulon,ulat)
+    poly <- geoRoute(ulat,ulon,vlat,vlon)
     llatlon <- decodeLine(poly)
     leafletProxy("map")%>%
       clearShapes() %>%
@@ -85,9 +91,9 @@ observe({
   { 
     mid_lat<-(ulat+vlat)/2
     mid_lon<-(ulon+vlon)/2
-    mid1<-Nearest3(mid_lat,mid_lon,slat_a,slon_a,sname_a)
-    poly1<- geoRoute(ulon,ulat,mid1$p1[2],mid1$p1[1])
-    poly2 <- geoRoute(mid1$p1[2],mid1$p1[1],vlon,vlat)
+    mid1<-Nearest3(mid_lat,mid_lon,slat_a,slon_a,sname_a,nuba_a,nuda_a)
+    poly1<- geoRoute(ulat,ulon,mid1$p1[1],mid1$p1[2])
+    poly2 <- geoRoute(mid1$p1[1],mid1$p1[2],vlat,vlon)
     llatlon1 <- decodeLine(poly1)
     llatlon2 <- decodeLine(poly2)
  #Google Api#
@@ -101,6 +107,7 @@ observe({
    Times2<-Route2$rows[[1]]$elements[[1]]$duration$text
    leafletProxy("map")%>%
      clearShapes() %>%
+     addMarkers(mid1$p1[2],mid1$p1[1],popup=paste("Names: ",mid1$p1[5],"<br>","Mid","<br>",as.character(mid1$p1[3])," bikes available, ",as.character(mid1$p1[4]),"docks available"))%>%
      addPolylines(lng=llatlon1$lon,lat=llatlon1$lat,color="blue",popup=sprintf("Time=%s, Distance=%s",Times1,Distances1))%>%
      addPolylines(lng=llatlon2$lon,lat=llatlon2$lat,color="red",popup=sprintf("Time=%s, Distance=%s",Times2,Distances2))
     }
