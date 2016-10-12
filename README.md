@@ -11,13 +11,9 @@ Term: Fall 2016
 	+ Hyung joon Choi 
 	+ Kaisheng Wang
 	
-+ Project summary: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
++ Project summary: There are more than 100,000 citi bike users in New York City. Our project focuses on using citi bike data and Google map API to recommend nearby bike stations and routes for users. We also provide station information based on different time. The datasets we used were collected from citi bike official website from 6am to 10pm. Users can select the time when they would like to use the citi bikes and they can see the avaibility of all the bike stations. After inputting addresses of the start point and the desitination, the users will see three recommended avalable stations around the start point and destination. Unlike google map or citi bike station map, we only show three nearest stations around the start location and destination on the map, and let users to make their own choices. In this way, the users have greater flexibility of the choices and pick an optimal station to use bikes.Besides, we also showed a heatmap of bike stations, which shows location informations of citi bike stations.
 
 In this second project of Applied Data Science, we will carry out *Exploratory Data Analysis and Visualization* via a shiny app on a topic about open data released from the [New York City open data portal](https://nycopendata.socrata.com/). See [Project 2 Description](doc/project2_desc.md) for more details.  
-
-```diff
-+ **After your finish your shiny app, please replace the screenshot below with one from your own app.**
-```
 
 ![screenshot](doc/screenshot2.png)
 
