@@ -14,7 +14,7 @@ library(RJSONIO)
 library(dplyr)
 library(stringr)
 #Input Data
-data_6am_whole <- readRDS("/Users/kaishengwang/Desktop/Applied\ Data\ Science\ Project/Project\ 2/Data/6am.RData")
+data_6am_whole <- readRDS("C:/Users/Owner/Desktop/ADS/Project2/6am.RData")
 vector1 <- vector(length = 664)
 vector2 <- vector(length = 664)
 vector3 <- vector(length = 664)
@@ -46,7 +46,7 @@ rm(vector7)
 rm(vector8)
 rm(data_6am_whole)
 
-data_7am_whole <- readRDS("/Users/kaishengwang/Desktop/Applied\ Data\ Science\ Project/Project\ 2/Data/7am.RData")
+data_7am_whole <- readRDS("C:/Users/Owner/Desktop/ADS/Project2/7am.RData")
 vector1 <- vector(length = 664)
 vector2 <- vector(length = 664)
 vector3 <- vector(length = 664)
@@ -79,7 +79,7 @@ rm(vector8)
 rm(data_7am_whole)
 
 
-data_8am_whole <- readRDS("/Users/kaishengwang/Desktop/Applied\ Data\ Science\ Project/Project\ 2/Data/8am.RData")
+data_8am_whole <- readRDS("C:/Users/Owner/Desktop/ADS/Project2/8am.RData")
 vector1 <- vector(length = 664)
 vector2 <- vector(length = 664)
 vector3 <- vector(length = 664)
@@ -111,7 +111,7 @@ rm(vector7)
 rm(vector8)
 rm(data_8am_whole)
 
-data_9am_whole <- readRDS("/Users/kaishengwang/Desktop/Applied\ Data\ Science\ Project/Project\ 2/Data/9am.RData")
+data_9am_whole <- readRDS("C:/Users/Owner/Desktop/ADS/Project2/9am.RData")
 vector1 <- vector(length = 664)
 vector2 <- vector(length = 664)
 vector3 <- vector(length = 664)
@@ -143,7 +143,7 @@ rm(vector7)
 rm(vector8)
 rm(data_9am_whole)
 
-data_10am_whole <- readRDS("/Users/kaishengwang/Desktop/Applied\ Data\ Science\ Project/Project\ 2/Data/10am.RData")
+data_10am_whole <- readRDS("C:/Users/Owner/Desktop/ADS/Project2/10am.RData")
 vector1 <- vector(length = 664)
 vector2 <- vector(length = 664)
 vector3 <- vector(length = 664)
@@ -175,7 +175,7 @@ rm(vector7)
 rm(vector8)
 rm(data_10am_whole)
 
-data_11am_whole <- readRDS("/Users/kaishengwang/Desktop/Applied\ Data\ Science\ Project/Project\ 2/Data/11am.RData")
+data_11am_whole <- readRDS("C:/Users/Owner/Desktop/ADS/Project2/11am.RData")
 vector1 <- vector(length = 664)
 vector2 <- vector(length = 664)
 vector3 <- vector(length = 664)
@@ -207,7 +207,7 @@ rm(vector7)
 rm(vector8)
 rm(data_11am_whole)
 
-data_12pm_whole <- readRDS("/Users/kaishengwang/Desktop/Applied\ Data\ Science\ Project/Project\ 2/Data/12pm.RData")
+data_12pm_whole <- readRDS("C:/Users/Owner/Desktop/ADS/Project2/12pm.RData")
 vector1 <- vector(length = 664)
 vector2 <- vector(length = 664)
 vector3 <- vector(length = 664)
@@ -239,7 +239,7 @@ rm(vector7)
 rm(vector8)
 rm(data_12pm_whole)
 
-data_1pm_whole <- readRDS("/Users/kaishengwang/Desktop/Applied\ Data\ Science\ Project/Project\ 2/Data/1pm.RData")
+data_1pm_whole <- readRDS("C:/Users/Owner/Desktop/ADS/Project2/1pm.RData")
 vector1 <- vector(length = 664)
 vector2 <- vector(length = 664)
 vector3 <- vector(length = 664)
@@ -271,7 +271,7 @@ rm(vector7)
 rm(vector8)
 rm(data_1pm_whole)
 
-data_2pm_whole <- readRDS("/Users/kaishengwang/Desktop/Applied\ Data\ Science\ Project/Project\ 2/Data/2pm.RData")
+data_2pm_whole <- readRDS("C:/Users/Owner/Desktop/ADS/Project2/2pm.RData")
 vector1 <- vector(length = 664)
 vector2 <- vector(length = 664)
 vector3 <- vector(length = 664)
@@ -288,7 +288,7 @@ for (i in 1:664){
   vector5[i] <- data_2pm_whole$data$stations[[i]]$num_docks_disabled
   vector6[i] <- data_2pm_whole$data$stations[[i]]$is_installed
   vector7[i] <- data_2pm_whole$data$stations[[i]]$is_renting
-  vector8[i] <- datq_2pm_whole$data$stations[[i]]$is_returning
+  vector8[i] <- data_2pm_whole$data$stations[[i]]$is_returning
 }
 data_2pm <- data.frame(vector1, vector2, vector3, vector4, vector5, vector6, vector7, vector8, row.names = c(1:664))
 colnames(data_2pm) = c("Station_NO.", "Num_bikes_available", "Num_bike_disable", "Num_dock_available", "Num_dock_disable", "is_installed", "is_renting", "is_returning")
@@ -303,7 +303,7 @@ rm(vector7)
 rm(vector8)
 rm(data_2pm_whole)
 
-data_3pm_whole <- readRDS("/Users/kaishengwang/Desktop/Applied\ Data\ Science\ Project/Project\ 2/Data/3pm.RData")
+data_3pm_whole <- readRDS("C:/Users/Owner/Desktop/ADS/Project2/3pm.RData")
 vector1 <- vector(length = 664)
 vector2 <- vector(length = 664)
 vector3 <- vector(length = 664)
@@ -335,7 +335,7 @@ rm(vector7)
 rm(vector8)
 rm(data_3pm_whole)
 
-data_4pm_whole <- readRDS("/Users/kaishengwang/Desktop/Applied\ Data\ Science\ Project/Project\ 2/Data/4pm.RData")
+data_4pm_whole <- readRDS("C:/Users/Owner/Desktop/ADS/Project2/4pm.RData")
 vector1 <- vector(length = 664)
 vector2 <- vector(length = 664)
 vector3 <- vector(length = 664)
@@ -367,7 +367,7 @@ rm(vector7)
 rm(vector8)
 rm(data_4pm_whole)
 
-data_5pm_whole <- readRDS("/Users/kaishengwang/Desktop/Applied\ Data\ Science\ Project/Project\ 2/Data/5pm.RData")
+data_5pm_whole <- readRDS("C:/Users/Owner/Desktop/ADS/Project2/5pm.RData")
 vector1 <- vector(length = 664)
 vector2 <- vector(length = 664)
 vector3 <- vector(length = 664)
@@ -399,7 +399,7 @@ rm(vector7)
 rm(vector8)
 rm(data_5pm_whole)
 
-data_6pm_whole <- readRDS("/Users/kaishengwang/Desktop/Applied\ Data\ Science\ Project/Project\ 2/Data/6pm.RData")
+data_6pm_whole <- readRDS("C:/Users/Owner/Desktop/ADS/Project2/6pm.RData")
 vector1 <- vector(length = 664)
 vector2 <- vector(length = 664)
 vector3 <- vector(length = 664)
@@ -431,7 +431,7 @@ rm(vector7)
 rm(vector8)
 rm(data_6pm_whole)
 
-data_7pm_whole <- readRDS("/Users/kaishengwang/Desktop/Applied\ Data\ Science\ Project/Project\ 2/Data/7pm.RData")
+data_7pm_whole <- readRDS("C:/Users/Owner/Desktop/ADS/Project2/7pm.RData")
 vector1 <- vector(length = 664)
 vector2 <- vector(length = 664)
 vector3 <- vector(length = 664)
@@ -463,7 +463,7 @@ rm(vector7)
 rm(vector8)
 rm(data_7pm_whole)
 
-data_8pm_whole <- readRDS("/Users/kaishengwang/Desktop/Applied\ Data\ Science\ Project/Project\ 2/Data/8pm.RData")
+data_8pm_whole <- readRDS("C:/Users/Owner/Desktop/ADS/Project2/8pm.RData")
 vector1 <- vector(length = 664)
 vector2 <- vector(length = 664)
 vector3 <- vector(length = 664)
@@ -495,7 +495,7 @@ rm(vector7)
 rm(vector8)
 rm(data_8pm_whole)
 
-data_9pm_whole <- readRDS("/Users/kaishengwang/Desktop/Applied\ Data\ Science\ Project/Project\ 2/Data/9pm.RData")
+data_9pm_whole <- readRDS("C:/Users/Owner/Desktop/ADS/Project2/9pm.RData")
 vector1 <- vector(length = 664)
 vector2 <- vector(length = 664)
 vector3 <- vector(length = 664)
@@ -527,7 +527,7 @@ rm(vector7)
 rm(vector8)
 rm(data_9pm_whole)
 
-data_10pm_whole <- readRDS("/Users/kaishengwang/Desktop/Applied\ Data\ Science\ Project/Project\ 2/Data/10pm.RData")
+data_10pm_whole <- readRDS("C:/Users/Owner/Desktop/ADS/Project2/10pm.RData")
 vector1 <- vector(length = 664)
 vector2 <- vector(length = 664)
 vector3 <- vector(length = 664)
@@ -579,7 +579,7 @@ data_Time[[16]] <- data_9pm
 data_Time[[17]] <- data_10pm
 
 
-data_information_whole <- readRDS("/Users/kaishengwang/Desktop/Applied\ Data\ Science\ Project/Project\ 2/Data/info.RData")
+data_information_whole <- readRDS("C:/Users/Owner/Desktop/ADS/Project2/info.RData")
 #data_information <- matrix(0,nrow = 664, ncol = 4)
 vector1 <- vector(length = 664)
 vector2 <- vector(length = 664)
@@ -601,17 +601,29 @@ rm(vector2)
 rm(vector3)
 rm(vector4)
 
+
+#Station info#
 slon <- data_information$longitude
 slat <- data_information$Latitude
+sname<-data_information$Station_Name
+position<-data.frame(slon,slat)
 
-data <- data_6am
-nuba <- data$Num_bikes_available
-nubd <- data$Num_bike_disable
-nuda <- data$Num_dock_available
-nudd <- data$Num_dock_disable
 
-#Make Icon
-Bikeicons<-icons(iconUrl=ifelse(nuba==0|nuda==0,"/Users/kaishengwang/Desktop/Fall2016-Proj2-grp9/doc/No.png","/Users/kaishengwang/Desktop/Fall2016-Proj2-grp9/doc/092-512.png"),iconWidth=20,iconHeight=20)
+#Api_key#
+Api_key<-"AIzaSyA0UYIWqZLCE-IBl5x1mrhZJ8wdRh5yVcM"
+
+#Bikeicon1#
+Bikeicons1<-
+  icons(
+    iconUrl="C:/Users/Owner/Desktop/ADS/Project2/No.png",
+    iconWidth=20,iconHeight=20)
+
+
+#Bikeicon2#
+Bikeicons2<-
+  icons(
+    iconUrl="C:/Users/Owner/Desktop/ADS/Project2/092-512.png",
+    iconWidth=20,iconHeight=20)
 
 
 #Create Function
@@ -689,46 +701,9 @@ decodeLine <- function(encoded){
   coords
 }
 
-filter_crime<-function(lat,lng,radius){
-  latlimit<-(radius)/110574    #1 deg = 110574 m     1m = 1/110574 deg
-  lnglimit<-(0.25*radius)/abs(111320*cos(lat))  #1 deg = 111320*cos(latitude) m    1m= 1/(111320*cos(latitude)) deg
-  latrange_upper<-lat+latlimit
-  latrange_lower<-lat-latlimit
-  lngrange_upper<-lng+lnglimit
-  lngrange_lower<-lng-lnglimit
-  crime_sub<-filter(crime, Lat>latrange_lower,Lat<latrange_upper,
-                    Long>lngrange_lower,Long<lngrange_upper)
-  return(crime_sub)
-}
-# lat=40.748730
-# lng=-73.988315
-# filter_crime(lat,lng,400)
 
 
 
-url <- function(address, return.call = "json", sensor = "false") {
-  root <- "http://maps.google.com/maps/api/geocode/"
-  u <- paste(root, return.call, "?address=", address, "&sensor=", sensor, sep = "")
-  return(URLencode(u))
-}
-
-
-geoCode <- function(address,verbose=FALSE) {
-  if(verbose) cat(address,"\n")
-  u <- url(address)
-  doc <- getURL(u)
-  x <- fromJSON(doc,simplify = FALSE)
-  if(x$status=="OK") {
-    lat <- x$results[[1]]$geometry$location$lat
-    lng <- x$results[[1]]$geometry$location$lng
-    location_type  <- x$results[[1]]$geometry$location_type
-    formatted_address  <- x$results[[1]]$formatted_address
-    return(c(lat, lng, location_type, formatted_address))
-    Sys.sleep(0.5)
-  } else {
-    return(c(NA,NA,NA, NA))
-  }
-}
 
 
 url2 <- function(ori_lat,ori_lng,des_lat,des_lng,return.call = "json", sensor = "false") {
@@ -765,4 +740,3 @@ Nearest3<-function(xlat,xlon,slat,slon,nuba,nuda)
   p3<-c(slat[rdis==3],slon[rdis==3],nuba[rdis==3],nuda[rdis==3])
   return(list(p1=p1,p2=p2,p3=p3))
 }
-
